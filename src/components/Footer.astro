@@ -1,0 +1,46 @@
+---
+import { getLangFromUrl, useTranslations, getLocalePath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href={getLocalePath(lang)} class="footer-logo">
+          <span class="logo-icon">✦</span>
+          <span>{t('nav.tagline')}</span>
+        </a>
+        <p class="footer-tagline">{t('footer.tagline')}</p>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter/X" class="social-link">𝕏</a>
+          <a href="#" aria-label="YouTube" class="social-link">▶</a>
+          <a href="#" aria-label="小红书" class="social-link">📖</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">{t('footer.links')}</h3>
+        <ul class="footer-links">
+          <li><a href={getLocalePath(lang)}>{t('nav.home')}</a></li>
+          <li><a href={getLocalePath(lang, 'blog')}>{t('nav.blog')}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">{t('footer.legal')}</h3>
+        <ul class="footer-links">
+          <li><a href={getLocalePath(lang, 'privacy')}>{t('footer.privacy')}</a></li>
+          <li><a href={getLocalePath(lang, 'disclaimer')}>{t('footer.disclaimer')}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>{t('footer.copyright').replace('2025', String(currentYear))}</p>
+    </div>
+  </div>
+</footer>

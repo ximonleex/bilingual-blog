@@ -1,0 +1,2 @@
+# Redirect root to English by default
+/   /en/   302

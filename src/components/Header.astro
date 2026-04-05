@@ -1,0 +1,59 @@
+---
+import { getLangFromUrl, useTranslations, getAlternateLang, getLocalePath } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const alternateLang = getAlternateLang(lang);
+const currentPath = Astro.url.pathname;
+const alternatePath = currentPath.replace(`/${lang}/`, `/${alternateLang}/`);
+---
+
+<header class="site-header">
+  <div class="container">
+    <a href={getLocalePath(lang)} class="logo">
+      <span class="logo-icon">✦</span>
+      <span class="logo-text">{t('nav.tagline')}</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href={getLocalePath(lang)} class:list={['nav-link', { active: currentPath === `/${lang}/` || currentPath === `/${lang}` }]}>
+        {t('nav.home')}
+      </a>
+      <a href={getLocalePath(lang, 'blog')} class:list={['nav-link', { active: currentPath.includes('/blog') }]}>
+        {t('nav.blog')}
+      </a>
+    </nav>
+
+    <div class="header-actions">
+      <a href={alternatePath} class="lang-switcher" aria-label="Switch language">
+        <span class="lang-current">{languages[lang]}</span>
+        <span class="lang-divider">/</span>
+        <span class="lang-alt">{languages[alternateLang]}</span>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href={getLocalePath(lang)} class="mobile-nav-link">{t('nav.home')}</a>
+    <a href={getLocalePath(lang, 'blog')} class="mobile-nav-link">{t('nav.blog')}</a>
+    <a href={alternatePath} class="mobile-nav-link lang-toggle">
+      {lang === 'en' ? '切换中文' : 'Switch to English'}
+    </a>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mobileNav');
+  toggle?.addEventListener('click', () => {
+    nav?.classList.toggle('open');
+    toggle.classList.toggle('open');
+  });
+</script>

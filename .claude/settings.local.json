@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd.exe /c \"node --version && npm --version\")",
+      "Bash(powershell.exe -Command \"node --version; npm --version\")",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(cmd.exe /c \"node -v\")"
+    ]
+  }
+}

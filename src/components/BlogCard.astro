@@ -1,0 +1,70 @@
+---
+import { getLangFromUrl, useTranslations, formatDate } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  slug: string;
+  category: string;
+  featured?: boolean;
+  image?: { url: string; alt: string };
+  lang?: 'en' | 'zh';
+}
+
+const {
+  title,
+  description,
+  pubDate,
+  slug,
+  category,
+  featured = false,
+  image,
+  lang: propLang,
+} = Astro.props;
+
+const lang = propLang || getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const collection = lang === 'en' ? 'blog-en' : 'blog-zh';
+const href = `/${lang}/blog/${slug}`;
+const categoryLabel = t(`category.${category}` as any) || category;
+---
+
+<article class:list={['blog-card', { 'blog-card--featured': featured }]}>
+  {image && (
+    <a href={href} class="blog-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="blog-card__image-wrap">
+        <img src={image.url} alt={image.alt} loading="lazy" decoding="async" />
+      </div>
+    </a>
+  )}
+  {!image && (
+    <a href={href} class="blog-card__image-link" tabindex="-1" aria-hidden="true">
+      <div class="blog-card__image-placeholder">
+        <span>✦</span>
+      </div>
+    </a>
+  )}
+
+  <div class="blog-card__body">
+    <div class="blog-card__meta">
+      <span class="blog-card__category">{categoryLabel}</span>
+      {featured && <span class="blog-card__featured-badge">{t('home.featured.badge')}</span>}
+    </div>
+
+    <h2 class="blog-card__title">
+      <a href={href}>{title}</a>
+    </h2>
+
+    <p class="blog-card__description">{description}</p>
+
+    <div class="blog-card__footer">
+      <time datetime={pubDate.toISOString()} class="blog-card__date">
+        {formatDate(pubDate, lang)}
+      </time>
+      <a href={href} class="blog-card__read-more">
+        {t('blog.readMore')} →
+      </a>
+    </div>
+  </div>
+</article>

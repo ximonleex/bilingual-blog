@@ -1,0 +1,9 @@
+# Cloudflare Pages configuration
+# Deploy with: npx wrangler pages deploy dist --project-name=bilingual-blog
+# Or connect your Git repo via the Cloudflare Pages dashboard
+
+name = "bilingual-blog"
+compatibility_date = "2024-09-23"
+
+# Pages build output directory
+pages_build_output_dir = "./dist"

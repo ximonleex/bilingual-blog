@@ -1,0 +1,21 @@
+{
+  "name": "bilingual-blog",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.18",
+    "@astrojs/mdx": "^3.1.9",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/cloudflare": "^11.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
